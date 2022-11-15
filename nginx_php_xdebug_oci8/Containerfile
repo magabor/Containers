@@ -1,0 +1,11 @@
+FROM adrianorighi/alpine-nginx-php-oci8
+LABEL org.opencontainers.image.author="magabor6@gmail.com"
+RUN apk update \
+	&& apk add php7-pecl-xdebug \
+	&& sed -i '2 s/;//' /etc/php7/conf.d/xdebug.ini \
+	&& echo "" >> /etc/php7/php.ini \
+	&& echo "[xdebug]" >> /etc/php7/php.ini \
+	&& echo "xdebug.remote_enable = 1" >> /etc/php7/php.ini \
+	&& echo "xdebug.remote_autostart = 1" >> /etc/php7/php.ini \
+	&& echo "xdebug.remote_host = host.containers.internal" >> /etc/php7/php.ini \
+	&& echo "xdebug.remote_port = 9003" >> /etc/php7/php.ini
